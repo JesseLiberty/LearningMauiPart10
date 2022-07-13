@@ -1,24 +1,16 @@
-﻿namespace LearningMauiPart10;
+﻿using LearningMauiPart10.ViewModel;
+namespace LearningMauiPart10;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    public MainPage(MainViewModel viewModel)
+    {
+        BindingContext = viewModel;
+        InitializeComponent();
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+	
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
 }
 

@@ -1,41 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LearningMauiPart10.MainPage">
-			 
-    <ScrollView>
-        <VerticalStackLayout 
-            Spacing="25" 
-            Padding="30,0" 
-            VerticalOptions="Center">
+<ContentPage
+    x:Class="LearningMauiPart10.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:LearningMauiPart10.Model"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:LearningMauiPart10.ViewModel"
+    Title="{Binding Title}"
+    x:DataType="viewmodel:MainViewModel">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-                
-            <Label 
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-            
-            <Label 
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button 
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
- 
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Results}">
+            <CollectionView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToZipCodeDetailsCommand}" CommandParameter="{Binding .}" />
+            </CollectionView.GestureRecognizers>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Result">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout
+                            Padding="10"
+                            Spacing="4"
+                            VerticalOptions="Center">
+                            <Label VerticalOptions="Center">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}  {2}">
+                                        <Binding Path="city" />
+                                        <Binding Path="state" />
+                                        <Binding Path="zip" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <HorizontalStackLayout>
+            <Button
+                Padding="10"
+                Command="{Binding GetZipCodesCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Get Zipcodes" />
+            <Button
+                Padding="10"
+                Command="{Binding GoToZipCodeDetailsCommand}"
+                Text="Go To Details" />
+        </HorizontalStackLayout>
+    </StackLayout>
 </ContentPage>
