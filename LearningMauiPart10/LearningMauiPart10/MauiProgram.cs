@@ -20,7 +20,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<ZipCodeDetailsViewModel>();
-        builder.Services.AddTransient<ZipWCodeDetailsPage>();
+        builder.Services.AddTransient<ZipCodeDetailsPage>();
 
 
         return builder.Build();
