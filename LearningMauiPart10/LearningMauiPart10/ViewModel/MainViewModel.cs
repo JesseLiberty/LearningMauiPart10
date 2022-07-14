@@ -23,9 +23,6 @@ namespace LearningMauiPart10.ViewModel
         public bool IsNotBusy => !IsBusy;
         
 
-        //[ObservableProperty]
-        //public List<Result> _resultList;
-
         public ObservableCollection<Result> Results { get; } = new();
 
         public MainViewModel(ZipCodeService _zipCodeService)
@@ -66,11 +63,33 @@ namespace LearningMauiPart10.ViewModel
         [ICommand]
         async Task GoToZipCodeDetailsAsync()
         {
-            await Shell.Current.GoToAsync($"ZipCodeDetailsPage", true);
+
+            Result result = new Result
+            {
+                zip = "01720",
+                city = "Acton",
+                state = "MA"
+            };
+
+            
+            try
+            {
+                 await Shell.Current.GoToAsync($"ZipCodeDetailsPage", true,
+                    new Dictionary<string, object>
+                {
+                        
+                    { "Result", result }
+                });               
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Unable to get results!", ex.Message, "OK");
+            }
         }
-
+        
     }
-
+    
 
 
 }

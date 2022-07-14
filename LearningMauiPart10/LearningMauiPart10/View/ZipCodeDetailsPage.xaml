@@ -3,13 +3,15 @@
     x:Class="LearningMauiPart10.View.ZipCodeDetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="NewPage1">
+    xmlns:viewmodel="clr-namespace:LearningMauiPart10.ViewModel"
+    x:DataType="viewmodel:ZipCodeDetailsViewModel">
     <VerticalStackLayout>
         <Label
             HorizontalOptions="Center"
             Text="Welcome to .NET MAUI!"/>
-        <HorizontalStackLayout>
+        <VerticalStackLayout>
             <Label Text="You made it to the details page!" />
-        </HorizontalStackLayout>
+            <Label Text="{Binding Result.city}" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
