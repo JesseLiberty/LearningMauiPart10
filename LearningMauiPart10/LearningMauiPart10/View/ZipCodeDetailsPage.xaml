@@ -12,6 +12,8 @@
         <VerticalStackLayout>
             <Label Text="You made it to the details page!" />
             <Label Text="{Binding Result.city}" />
+            <Label Text="{Binding Result.state}" />
+            <Label Text="{Binding Result.zip}" />
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

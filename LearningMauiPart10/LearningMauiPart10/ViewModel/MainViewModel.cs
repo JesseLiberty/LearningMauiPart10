@@ -78,13 +78,13 @@ namespace LearningMauiPart10.ViewModel
                     new Dictionary<string, object>
                 {
                         
-                    { "Result", result }
+                    { nameof(Result), result }
                 });               
             }
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Unable to get results!", ex.Message, "OK");
+                await Shell.Current.DisplayAlert("Unable to go to Details page!", ex.Message, "OK");
             }
         }
         
