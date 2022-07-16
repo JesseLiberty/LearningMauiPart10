@@ -18,12 +18,12 @@
                 Text="Get Zipcodes" />
             <Button
                 Padding="10"
-                Command="{Binding GoToZipCodeDetailsCommand}"
-                Text="Go To Details" />
-            <Button
-                Padding="10"
                 Command="{Binding ClearCommand}"
                 Text="Clear" />
+            <Button
+                Padding="10"
+                Command="{Binding ShowMapCommand}"
+                Text="Show Map" />
         </HorizontalStackLayout>
 
         <CollectionView ItemsSource="{Binding Results}" SelectionMode="None">

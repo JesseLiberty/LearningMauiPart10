@@ -11,6 +11,7 @@ namespace LearningMauiPart10.ViewModel
     {
 
         public ZipCodeService _zipCodeService;
+        public IMap map;
 
         [ObservableProperty]
         public string _title;
@@ -25,10 +26,36 @@ namespace LearningMauiPart10.ViewModel
 
         public ObservableCollection<Result> Results { get; } = new();
 
-        public MainViewModel(ZipCodeService _zipCodeService)
+        public MainViewModel(ZipCodeService _zipCodeService,IMap map)
         {
             Title = "Zip Finder";
             this._zipCodeService = _zipCodeService;
+            this.map = map;
+        }
+
+        [ICommand]
+        public async Task ShowMapAsync()
+        {
+            var placemark = new Placemark
+            {
+                CountryName = "United States",
+                AdminArea = "MA",
+                Thoroughfare = "Town Hall",
+                Locality = "Acton"
+            };
+            var options = new MapLaunchOptions { Name = "Town Hall" };
+
+            try
+            {
+                await Map.Default.OpenAsync(placemark, options);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Unable to open map", ex.Message, "OK");
+
+            }
         }
 
         [ICommand]
