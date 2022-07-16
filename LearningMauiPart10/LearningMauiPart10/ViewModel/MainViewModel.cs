@@ -66,14 +66,6 @@ namespace LearningMauiPart10.ViewModel
         async Task GoToZipCodeDetailsAsync(Result result)
         {
 
-            //Result result = new Result
-            //{
-            //    zip = "01720",
-            //    city = "Acton",
-            //    state = "MA"
-            //};
-
-
             try
             {
                 await Shell.Current.GoToAsync($"ZipCodeDetailsPage", true,
