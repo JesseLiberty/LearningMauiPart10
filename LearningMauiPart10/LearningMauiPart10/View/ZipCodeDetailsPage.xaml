@@ -5,15 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:LearningMauiPart10.ViewModel"
     x:DataType="viewmodel:ZipCodeDetailsViewModel">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"/>
-        <VerticalStackLayout>
-            <Label Text="You made it to the details page!" />
-            <Label Text="{Binding Result.city}" />
-            <Label Text="{Binding Result.state}" />
-            <Label Text="{Binding Result.zip}" />
-        </VerticalStackLayout>
+    <VerticalStackLayout Margin="20">
+        <Label Text="You made it to the details page!" />
+        <Label Text="{Binding Result.city}" />
+        <Label Text="{Binding Result.state}" />
+        <Label Text="{Binding Result.zip}" />
+        <BoxView
+            Margin="10"
+            HeightRequest="2"
+            Color="#FF0000" />
+        <Button
+            Padding="20"
+            Command="{Binding GoBackCommand}"
+            Text="Go Back"
+            WidthRequest="100" />
     </VerticalStackLayout>
 </ContentPage>

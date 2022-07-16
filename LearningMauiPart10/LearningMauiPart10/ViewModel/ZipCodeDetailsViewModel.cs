@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using LearningMauiPart10.Model;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace LearningMauiPart10.ViewModel;
 
@@ -14,5 +15,10 @@ public partial class ZipCodeDetailsViewModel : ObservableObject
     [ObservableProperty]
     Result result;
 
+    [ICommand]
+    public async Task GoBackAsync()
+    {
+        await Shell.Current.GoToAsync("..", true);
+    }
 
 }
