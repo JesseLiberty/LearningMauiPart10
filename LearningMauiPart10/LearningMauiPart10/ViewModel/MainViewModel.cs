@@ -63,15 +63,15 @@ namespace LearningMauiPart10.ViewModel
         }
 
         [ICommand]
-        async Task GoToZipCodeDetailsAsync()
+        async Task GoToZipCodeDetailsAsync(Result result)
         {
 
-            Result result = new Result
-            {
-                zip = "01720",
-                city = "Acton",
-                state = "MA"
-            };
+            //Result result = new Result
+            //{
+            //    zip = "01720",
+            //    city = "Acton",
+            //    state = "MA"
+            //};
 
 
             try

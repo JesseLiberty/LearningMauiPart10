@@ -10,56 +10,57 @@
     x:DataType="viewmodel:MainViewModel">
 
     <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Button
-                    Padding="10"
-                    Command="{Binding GetZipCodesCommand}"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Get Zipcodes" />
-                <Button
-                    Padding="10"
-                    Command="{Binding GoToZipCodeDetailsCommand}"
-                    Text="Go To Details" />
-            <Button Padding="10" Command="{Binding ClearCommand}" Text="Clear" />
+        <HorizontalStackLayout>
+            <Button
+                Padding="10"
+                Command="{Binding GetZipCodesCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Get Zipcodes" />
+            <Button
+                Padding="10"
+                Command="{Binding GoToZipCodeDetailsCommand}"
+                Text="Go To Details" />
+            <Button
+                Padding="10"
+                Command="{Binding ClearCommand}"
+                Text="Clear" />
         </HorizontalStackLayout>
 
-        <ScrollView>
-            <VerticalStackLayout>
-                <CollectionView ItemsSource="{Binding Results}">
-                    <CollectionView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToZipCodeDetailsCommand}" CommandParameter="{Binding .}" />
-                    </CollectionView.GestureRecognizers>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Result">
-                            <VerticalStackLayout>
-                                <HorizontalStackLayout
-                                    Padding="10"
-                                    Spacing="4"
-                                    VerticalOptions="Center">
-                                    <Label VerticalOptions="Center">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0}, {1}  {2}">
-                                                <Binding Path="city" />
-                                                <Binding Path="state" />
-                                                <Binding Path="zip" />
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+        <CollectionView ItemsSource="{Binding Results}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Result">
+                    <Grid Padding="10">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToZipCodeDetailsCommand}" CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout
+                                Padding="10"
+                                Spacing="4"
+                                VerticalOptions="Center">
+                                <Label VerticalOptions="Center">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}  {2}">
+                                            <Binding Path="city" />
+                                            <Binding Path="state" />
+                                            <Binding Path="zip" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-                <ActivityIndicator
-                    Grid.RowSpan="2"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="FillAndExpand"
-                    IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    VerticalOptions="CenterAndExpand" />
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
 
-            </VerticalStackLayout>
-        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>
