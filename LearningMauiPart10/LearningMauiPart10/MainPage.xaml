@@ -3,12 +3,12 @@
     x:Class="LearningMauiPart10.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:LearningMauiPart10.Model"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-    ios:Page.UseSafeArea="True"
     xmlns:viewmodel="clr-namespace:LearningMauiPart10.ViewModel"
     Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
     x:DataType="viewmodel:MainViewModel">
 
     <VerticalStackLayout>
@@ -28,34 +28,39 @@
                 Text="Show Map" />
         </HorizontalStackLayout>
 
-        <CollectionView ItemsSource="{Binding Results}" SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Result">
-                    <Grid Padding="10">
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToZipCodeDetailsCommand}" CommandParameter="{Binding .}" />
-                        </Grid.GestureRecognizers>
-                        <VerticalStackLayout>
-                            <HorizontalStackLayout
-                                Padding="10"
-                                Spacing="4"
-                                VerticalOptions="Center">
-                                <Label VerticalOptions="Center">
-                                    <Label.Text>
-                                        <MultiBinding StringFormat="{}{0}, {1}  {2}">
-                                            <Binding Path="city" />
-                                            <Binding Path="state" />
-                                            <Binding Path="zip" />
-                                        </MultiBinding>
-                                    </Label.Text>
-                                </Label>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
+        <RefreshView Command="{Binding GetZipCodesCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Results}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     Span="{OnIdiom Desktop=3, Default=2}" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Result">
+                        <Grid Padding="10">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToZipCodeDetailsCommand}" CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout>
+                                <HorizontalStackLayout
+                                    Padding="10"
+                                    Spacing="4"
+                                    VerticalOptions="Center">
+                                    <Label VerticalOptions="Center">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1}  {2}">
+                                                <Binding Path="city" />
+                                                <Binding Path="state" />
+                                                <Binding Path="zip" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
         <ActivityIndicator
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"

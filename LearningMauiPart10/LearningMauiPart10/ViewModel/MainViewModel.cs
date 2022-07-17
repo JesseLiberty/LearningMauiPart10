@@ -23,6 +23,8 @@ namespace LearningMauiPart10.ViewModel
 
         public bool IsNotBusy => !IsBusy;
 
+        [ObservableProperty] 
+        public bool _isRefreshing;
 
         public ObservableCollection<Result> Results { get; } = new();
 
@@ -86,6 +88,7 @@ namespace LearningMauiPart10.ViewModel
             finally
             {
                 IsBusy = false;
+                IsRefreshing = false;
             }
         }
 
@@ -116,7 +119,4 @@ namespace LearningMauiPart10.ViewModel
         }
 
     }
-
-
-
 }
