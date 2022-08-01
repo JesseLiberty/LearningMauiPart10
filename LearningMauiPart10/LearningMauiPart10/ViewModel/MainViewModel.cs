@@ -2,6 +2,7 @@
 using LearningMauiPart10.Service;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using SQLite;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -75,14 +76,14 @@ namespace LearningMauiPart10.ViewModel
                 var results = await _zipCodeService.GetResults();
 
 
-                foreach (var zipCode in results)  // consider observableRangeCollection
+                foreach (var zipCode in results)  
                     Results.Add(zipCode);
 
 
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                 Debug.WriteLine(ex.Message);
                 await Shell.Current.DisplayAlert("Unable to get results!", ex.Message, "OK");
             }
             finally
